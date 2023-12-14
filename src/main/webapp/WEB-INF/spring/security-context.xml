@@ -8,9 +8,10 @@
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 <security:http>
-		<security:form-login/>
-	</security:http>
-
+	<security:form-login/>
+	<security:csrf disabled="true"/>
+</security:http>
+		
 	<security:authentication-manager>
 	
 	</security:authentication-manager>

@@ -18,6 +18,10 @@ public class TweetServiceTests {
 	@Autowired
 	TweetService tweetService;
 	
+	@Test
+	public void getTest() {
+		log.info(tweetService.get(23L));
+	}
 	/*
 	@Test
 	public void addTest() {
@@ -38,11 +42,13 @@ public class TweetServiceTests {
 	public void updateTest() {
 		TweetVO tweet = tweetService.get(13L);
 		tweet.setContent("Service에서 수정" );
-		log.info(tweetService.update(tweet));
+		log.info(tweetService.modify(tweet));
 	}
 	*/
+	/*
 	@Test
 	public void getListTest() {
 		tweetService.getList(new PageInfo(2, 10));
 	}
+	*/
 }

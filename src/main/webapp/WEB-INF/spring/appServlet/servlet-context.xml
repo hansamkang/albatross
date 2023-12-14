@@ -3,12 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
-
+	<mvc:resources mapping="/images/**" location="file:C:\\upload\\2023\\12\\07\\" /><!--파일관련 위의 xmlns:mvc도 추가했음 -->
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+		
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -24,6 +25,8 @@
 	<context:component-scan base-package="com.example.albatross.exception"/>
 	<context:component-scan base-package="com.example.albatross.controller" />
 	
+
+
 	
 	
 </beans:beans>

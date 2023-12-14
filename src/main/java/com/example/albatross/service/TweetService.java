@@ -22,5 +22,5 @@ public interface TweetService {
 		public boolean remove(Long tid);
 			
 		// 업데이트
-		public boolean update(TweetVO tweet);
+		public boolean modify(TweetVO tweet);
 }

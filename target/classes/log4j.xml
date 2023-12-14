@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.example.board">
+	<logger name="com.example.albatross">
 		<level value="info" />
 	</logger>
 	

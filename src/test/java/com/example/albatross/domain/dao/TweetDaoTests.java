@@ -24,13 +24,13 @@ public class TweetDaoTests {
 		log.info(tweetDAO);
 	}
 	*/
-	/*
+	
 	@Test
 	public void getTest() {
 		log.info(tweetDAO.get(1L));
 	}
-	*/
 	
+	/*
 	@Test
 	public void addTest() {
 		TweetVO tweet = new TweetVO();
@@ -41,7 +41,7 @@ public class TweetDaoTests {
 		//tweet.setImage_link("none");
 		log.info(tweetDAO.add(tweet));
 	}
-	
+	*/
 	/*
 	@Test
 	public void removeTest() {

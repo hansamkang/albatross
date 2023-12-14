@@ -26,24 +26,24 @@ public class TweetMapperTests {
 	@Autowired
 	TweetMapper tweetMapper;
 
-/*
+	/*
 	@Test
 	public void insertTest() {
 		TweetVO tweet = new TweetVO();
 		tweet.setUuid(2L);
 		tweet.setT_type("nomal");
-		tweet.setContent("mapper에서 생성");
-		
+		tweet.setContent("mapper에서 생성: 언리드 테스트");
+		tweet.setImage_link("https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D");
 		tweetMapper.insert(tweet);
 		log.info(tweet);
 	}
-*/
-/*
+	*/
+	/*
 	@Test
 	public void selectTest() {
-		log.info(tweetMapper.select(2L));
+		log.info(tweetMapper.select(24	L));
 	}
-*/
+	*/
 	/*
 	@Test
 	public void deleteTest() {

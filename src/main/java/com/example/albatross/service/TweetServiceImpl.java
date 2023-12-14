@@ -37,7 +37,7 @@ public class TweetServiceImpl implements TweetService {
 	}
 
 	@Override
-	public boolean update(TweetVO tweet) {
+	public boolean modify(TweetVO tweet) {
 		return tweetDAO.update(tweet);
 	}
 

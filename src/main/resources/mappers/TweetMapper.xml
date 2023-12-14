@@ -16,7 +16,8 @@
 	</insert>
 	
 	<select id ="select" resultType="tweetVO">
-		SELECT * FROM ATT_TWEET
+		SELECT * 
+		FROM ATT_TWEET
 		WHERE TID = #{tid}
 	</select>
 
@@ -33,7 +34,7 @@
 		WHERE TID =#{tid}
 	</update>
 	
-	<select id="selectList" resultType="TweetVO">
+	<select id="selectList" resultType="tweetVO">
 		SELECT *
 		FROM
 		(
