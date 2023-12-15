@@ -63,24 +63,29 @@
         <h2>Home</h2>
       </div>
 
-      <!-- tweetbox starts -->
+      <!-------------------------------------------------- tweetbox starts----------------------------------- -->
       <div class="tweetBox">
         <form>
+          <div class = "uploadResult">
+			<ul></ul>
+		  </div>
           <div class="tweetbox__input">
             <img
               src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"
               alt=""
             />
             <div id ="textAreaDiv">
-              <textarea rows="5" cols="30" placeholder="What's happening?"></textarea>
+              <textarea name = "tweetTextArea" rows="5" cols="30" placeholder="What's happening?"></textarea>
             </div>
             
           </div>
 
           <div class="button-group">
-            <button class="tweetBox__imageButton">
-              <span class="material-icons"> image </span>
-            </button> 
+          	
+            <label for="file-upload" class="tweetBox__imageButton">
+  				<span class="material-icons"> image </span>
+			</label>
+			<input id="file-upload" type="file" style="display: none;">
             <button class="tweetBox__tweetButton">Tweet</button>
           </div>
         
@@ -166,12 +171,28 @@
     <script src="/resources/assets/js/tweet.js"></script>
     <script>
     const tweetBoardDiv = $("div.tweetBoard");
+    // 전역 변수들 
     
-    let page = 1;
+    let page; //현재 페이지 index
+    let tempUuid = 1; //임시 유저 아이디
+    let tempNickName = "KELA";
     
-    showList(page);
+    var maxSize = 1024 * 1024 * 40; //40MB
+    var $uploadResult = $(".uploadResult ul");
+    var regex = new RegExp("(.*/)\.(exe|sh|zip|alz)$");
     
+    // ----------------------------------------------------------------
+    //함수 실행
+    showList();
+    
+ // ----------------------------------------------------------------함수 라인-----------------------------------------------
+    //트윗 리스트 보여주는 함수  
     function showList(page){
+	 	if(page == null){
+	 		page = 1;
+	 		tweetBoardDiv.html("");
+	 	}
+	 	
     	tweetService.getTweetList({
     		page : page
     	},function(result){
@@ -193,8 +214,8 @@
 				str += `<div class="post__body">`;
 				str += `<div class="post__header">`;
 				str += `<div class="post__headerText">`;
-				str += `<h3> USER ID =` + list[i].uuid;
-				str += `<span class="post__headerSpecial"><span class="material-icons post__badge"> verified </span>@somanathg</span>`;
+				str += `<h3> ` + tempNickName;
+				str += `<span class="post__headerSpecial"><span class="material-icons post__badge"> verified </span>@KR`+ String(list[i].uuid).padStart(10, '0')+`</span>`;
 				str += `</h3>`;
 				str += `</div>`;
 				str += `<div class="post__headerDescription">`;
@@ -203,7 +224,7 @@
 				// 이미지
 				if(list[i].image_link != null){
 					//이걸 해결해야하오.
-					str += `<img src="/images/6eefa5c2-3a37-4c07-b1c4-0eee2911c114_요구사항정의서.png"/>`;
+					str += `<img src="/images/` + list[i].image_link + `"/>`;
 				}
 				str += `<div class="post__footer">`;
 				str += `<span class="material-icons"> repeat </span>`;
@@ -214,9 +235,132 @@
 				str += `</div>`;
 			}
     		
-    		tweetBoardDiv.html(str);
+    		tweetBoardDiv.append(str);
+    		page++;
     	});
     }
+    
+    //파일 유효성 체크
+    function checkExtension(fileName, fileSize){
+		if(regex.test(fileName)){
+			alert("업로드할 수 없는 파일의 형식입니다. ");
+			return false;
+		}
+		
+		if(fileSize >= maxSize){
+			alert("파일 사이즈 초과");
+			return false;
+		}
+		return true;
+	}
+    
+    // 첨부한거 보여주는거 
+    function showUploadResult(file){
+		var str = "";
+		$(file).each(function(i, file){
+			if(!file.fileType){
+				str += "<li>";
+				str += "<div>";
+				str += "</div>";
+				str += "<span>" +"이상한거 들어와버렸는데?" +file.fileName + "</span>";
+				str += "</li>";
+			}else{
+				console.log("uploadPath : "+file.uploadPath);
+				console.log("file.uuid : "+file.uuid);
+				console.log("file.fileName : "+file.fileName);
+				
+				var path =file.uploadPath + "\\" + file.uuid +"_"+ file.fileName;
+				var fileName = encodeURIComponent(path);
+				str += "<li data-filename='"+file.fileName+"' data-uuid='"+file.uuid+"' data-uploadpath='"+file.uploadPath+"' data-filetype='" + file.fileType + "'>";
+				str += "<div class='post__body' style='display: flex; align-items: center; justify-content: center; height: 100%;'>";
+				str += "<img src='/display?fileName=" + fileName + "' width='100'>";
+				str += "</div>";
+				str += "<span id='tempImgPath' style='display: none;'>" + path + "</span>";
+				str += "</li>";
+			}
+		});	
+		$uploadResult.append(str);
+	}
+    
+ // ----------------------------------------------------------------$라인-----------------------------------------------
+    // 트윗 작성 
+    $("button.tweetBox__tweetButton").on("click", function(e){
+    	e.preventDefault();
+    	console.log("트윗작성 함수");
+    
+    	var textValue = $("textarea[name='tweetTextArea']").val();
+
+    	if(textValue !== ""){
+        	//일단 유저아이디 이렇게 + 이미지 링크 넣어야 함
+        	console.log("큰 if안에 들어옴");
+			var tempPath;
+        	tempPath = $('#tempImgPath').text();
+        	console.log("test" +tempPath);
+				
+				
+        	tweetService.add({
+            	uuid : tempUuid,
+            	content: textValue,
+            	image_link : tempPath
+        	},function(){
+            	$("textarea[name='tweetTextArea']").val("");
+            	$(".uploadResult ul li").remove();
+            	
+            	page=null;
+            	showList();
+        	});     
+    	}
+    	else{
+    		alert("글을 입력해주세요.");
+    	}
+    });
+    
+	//사진 첨부 
+	$("input[type='file']").change(function(e){
+		$(".uploadResult ul li").remove();
+		
+		var formData = new FormData();
+		var file =$(this)[0].files[0]; 
+		console.log(file);
+		
+		//유효성 검사
+		if(!checkExtension(file.name, file.size)){
+			return false;
+		}
+		
+		// 파일 데이터 파싱 완료
+		formData.append("multipartFile", file);
+		
+		
+		//controller로 보냄
+		//42줄 enctype="multipart/form-data" 해야함
+		$.ajax({
+			url: '/upload',
+			processData: false,
+			contentType: false,
+			data: formData,
+			type: "post",
+			dataType: "json",
+			success: function(result){
+				console.log(result);
+				showUploadResult(result);
+			}
+		});
+	});
+	/*
+	$("input[type='submit']").on("click", function(e){
+		e.preventDefault();
+		var form = $(document.registForm);
+		var str = "";
+		
+		$(".uploadResult ul li").each(function(i, li){
+			"<input type='hidden' name=" value='" + $(li).data(uuid) + "'>"	
+			"<input type='hidden' name=" value='" + $(li).data(uploadpath) + "'>"	
+			"<input type='hidden' name=" value='" + $(li).data(filename) + "'>"	
+			"<input type='hidden' name=" value='" + $(li).data(filetype) + "'>"	
+		});
+	});
+	*/
     </script>
   </body>
 </html>
