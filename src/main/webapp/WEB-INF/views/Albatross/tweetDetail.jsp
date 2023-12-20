@@ -19,9 +19,11 @@
     />
   </head>
   <body>
-  	<!-- 전역 변수 설정 -->
+  
+  	<!-- JSTL 전역 변수 설정 -->
   	<sec:authentication var="userAuthentication" property="principal" />
   	<c:set var="profileLink" value="${userAuthentication.user.profile_link}" />
+   
     
     <!-- sidebar starts -->
     <div class="sidebar">
@@ -76,9 +78,48 @@
     <!-- feed starts -->
     <div class="feed">
       <div class="feed__header">
-        <h2>Home</h2>
+        <h2>Post Detail</h2>
       </div>
+	<!-------------------------------------------------- target Post----------------------------------- -->
+	<div class="tweetTarget"> 
+	<div class="post">
+        <div class="post__avatar">
+          <c:choose>
+          		<c:when test="${TweetDTO.profile_link == null}">
+          			<img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"/>
+          		</c:when>
+          		<c:otherwise>
+          			<img src="/images/${TweetDTO.profile_link}"/>
+          		</c:otherwise> 
+          	</c:choose>
+        </div>
 
+        <div class="postTarget__body">
+          <div class="post__header">
+            <div class="post__headerText">
+              <h3>
+                ${TweetDTO.nickname}
+                <span class="post__headerSpecial">
+                	<span class="material-icons post__badge"> verified </span>@KR${String.format("%010d", TweetDTO.uuid)}</span>
+              </h3>
+            </div>
+            <div class="post__headerDescription">
+              <p>${TweetDTO.content}</p>
+            </div>
+          </div>
+          
+        <c:if test="${TweetDTO.image_link != null}">
+                <img src="/images/${TweetDTO.image_link}"/>		
+		</c:if>
+          
+          <div class="post__footer">
+            <span class="material-icons"> repeat </span>
+            <span id="like-icon" class="material-icons not-liked"> favorite_border </span>
+            <span class="material-icons"> reply </span>
+          </div>
+        </div>
+      </div>
+	</div>
       <!-------------------------------------------------- tweetbox starts----------------------------------- -->
       <div class="tweetBox">
         <form>
@@ -95,7 +136,7 @@
           		</c:otherwise> 
           	</c:choose>
             <div id ="textAreaDiv">
-              <textarea name = "tweetTextArea" rows="5" cols="30" placeholder="What's happening?"></textarea>
+              <textarea name = "tweetTextArea" rows="5" cols="30" placeholder="Input Reply!!"></textarea>
             </div>
             
           </div>
@@ -204,7 +245,7 @@
     showList();
     
  // ----------------------------------------------------------------함수 라인-----------------------------------------------
-    //트윗 리스트 보여주는 함수  
+    //댓글 리스트 보여주는 함수  
     function showList(page){
 	 	if(page == null){
 	 		page = 1;
@@ -212,7 +253,7 @@
 	 	}
 	 	
     	tweetService.getTweetList({
-    		page : page,
+    		page : page
     	},function(result){
     		console.log("main.jsp 의 함수");
     		console.log(result);
@@ -234,7 +275,7 @@
 					str += `<img src="/images/` + list[i].profile_link + `"`;	
 				}
 				str += `alt="" class="post__profile" data-url="/Albatross/main"/> </div>`;
-				str += `<div class="post__body" data-url="/Albatross/tweetDetail?tid=53">`;
+				str += `<div class="post__body" data-url="/Albatross/main">`;
 				str += `<div class="post__header">`;
 				str += `<div class="post__headerText">`;
 				str += `<h3> ` + list[i].nickname;
@@ -326,13 +367,14 @@
 
     	if(textValue !== ""){
         	//일단 유저아이디 이렇게 + 이미지 링크 넣어야 함
-        	console.log("큰 if안에 들어옴");
         	var tempUuid ='<sec:authentication property="principal.user.uuid"/>';
 			var tempImgPath = $('#tempImgPath').text();				
-				
-        	tweetService.add({
+			var	tempkeyWord = "reply"; //나중에 이거 글 수정에서는 바뀌도록 변경해야 함
+        	
+			tweetService.add({
             	uuid : tempUuid,
             	content: textValue,
+            	keyword : tempkeyWord,
             	image_link : tempImgPath
         	},function(){
             	$("textarea[name='tweetTextArea']").val("");

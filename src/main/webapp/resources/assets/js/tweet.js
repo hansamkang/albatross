@@ -8,16 +8,27 @@ let tweetService = (function(){
 	
 	function getTweetList(param, callback, error){
  		let page = param.page || 1; //let variable = a || b; ----> a가  값이 없으면 b로 사용된다. 
- 		
- 		$.getJSON("/tweet/list/" + page + ".json", function(result){
- 			if(callback){
- 				callback(result);
- 			}		
- 		}).fail(function(xhr, status, err){
- 			if(error){
- 				error(err);
- 			}	
- 		}); 		
+ 		let tempType = param.type || "T"
+ 		let tempKeyword = param.keyword || "nomal"
+ 		$.ajax({
+    		url: '/tweet/list',
+    		type: 'GET',
+    		dataType: 'json',
+    		data: {
+        		pageNum: page, 
+        		amount: 10, 
+        		type: tempType,
+        		keyword: tempKeyword
+    		},
+    		success: function(result) {
+        		if(callback){
+ 					callback(result);
+ 				}
+    		},
+    		error: function(error) {
+        		console.error(error);
+    		}
+		});		
  	}
  	
  	//추가하기

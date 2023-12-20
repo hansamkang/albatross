@@ -18,10 +18,12 @@ public class TweetServiceTests {
 	@Autowired
 	TweetService tweetService;
 	
+	/*
 	@Test
 	public void getTest() {
-		log.info(tweetService.get(23L));
+		log.info(tweetService.get(26L));
 	}
+	*/
 	/*
 	@Test
 	public void addTest() {
@@ -45,10 +47,10 @@ public class TweetServiceTests {
 		log.info(tweetService.modify(tweet));
 	}
 	*/
-	/*
+	
 	@Test
 	public void getListTest() {
-		tweetService.getList(new PageInfo(2, 10));
+		tweetService.getList(new PageInfo(1,10,"TU", "nomal", 3L, null, null));
 	}
-	*/
+	
 }

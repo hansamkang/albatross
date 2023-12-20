@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.albatross.domain.dao.TweetDAO;
 import com.example.albatross.domain.vo.PageInfo;
+import com.example.albatross.domain.vo.TweetDTO;
 import com.example.albatross.domain.vo.TweetVO;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class TweetServiceImpl implements TweetService {
 	private final TweetDAO tweetDAO;
 	
 	@Override
-	public List<TweetVO> getList(PageInfo info) {
+	public List<TweetDTO> getList(PageInfo info) {
 		return tweetDAO.getList(info);
 	}
 
@@ -27,7 +28,7 @@ public class TweetServiceImpl implements TweetService {
 	}
 
 	@Override
-	public TweetVO get(Long tid) {
+	public TweetDTO get(Long tid) {
 		return tweetDAO.get(tid);
 	}
 

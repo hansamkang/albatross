@@ -27,7 +27,7 @@ public class TweetDaoTests {
 	
 	@Test
 	public void getTest() {
-		log.info(tweetDAO.get(1L));
+		log.info(tweetDAO.get(4L));
 	}
 	
 	/*
@@ -61,10 +61,10 @@ public class TweetDaoTests {
 		log.info("UPDATE : " + tweetDAO.update(tweet));
 	}
 	*/
-	
+	/*
 	@Test
 	public void getListTest() {
 		tweetDAO.getList(new PageInfo(1, 10)).forEach(log::info);
 	}
-
+	*/
 }

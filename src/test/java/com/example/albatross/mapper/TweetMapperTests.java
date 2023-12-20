@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.albatross.domain.vo.PageInfo;
+import com.example.albatross.domain.vo.TweetDTO;
 import com.example.albatross.domain.vo.TweetVO;
 
 import lombok.extern.log4j.Log4j;
@@ -41,7 +42,7 @@ public class TweetMapperTests {
 	/*
 	@Test
 	public void selectTest() {
-		log.info(tweetMapper.select(24	L));
+		log.info(tweetMapper.select(24L));
 	}
 	*/
 	/*
@@ -68,7 +69,6 @@ public class TweetMapperTests {
 	@Test
 	public void selectListTest() {
 		tweetMapper.selectList(new PageInfo(1,10)).forEach(log::info);
-		
 	}
 	
 	

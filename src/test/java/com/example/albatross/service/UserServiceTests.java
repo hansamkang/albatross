@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.example.albatross.domain.vo.PageInfo;
 import com.example.albatross.domain.vo.UserVO;
 
 import lombok.extern.log4j.Log4j;
@@ -24,7 +25,7 @@ public class UserServiceTests {
 	}
 	*/
 	
-	
+	/*
 	@Test
 	public void addTest() {
 		UserVO user = new UserVO();
@@ -33,7 +34,7 @@ public class UserServiceTests {
 		user.setNickname("service테스터");
 		log.info(userService.add(user));
 	}
-	
+	*/
 	
 	/*
 	@Test
@@ -53,12 +54,7 @@ public class UserServiceTests {
 		log.info("==============================================");
 	}
 	*/
-	/*
-	@Test
-	public void getListTest() {
-		userService.getList(new PageInfo(2, 10));
-	}
-	*/
+	
 	/*
 	@Test
 	public void checkEmailTest() {

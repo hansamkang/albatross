@@ -18,6 +18,7 @@ import com.example.albatross.domain.vo.PageInfo;
 import com.example.albatross.domain.vo.TweetDTO;
 import com.example.albatross.domain.vo.TweetVO;
 import com.example.albatross.service.TweetService;
+import com.example.albatross.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -28,10 +29,13 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class TweetController {
 	private final TweetService tweetService;
+	private final UserService userService;
 	
 	@GetMapping("/test")
     public String test() {
 		log.info("GET 요청이 잘 되었습니다.");
+		log.info(tweetService);
+		log.info(userService);
         return "Get 요청이 잘 처리되었습니다.";
     }
 	
@@ -45,17 +49,17 @@ public class TweetController {
 	}
 	
 	//트윗 전체 조회
-	@GetMapping(value = "/list/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<TweetVO>> getList(@PathVariable int page) {
+	@GetMapping(value = "/list", 
+				produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<TweetDTO>> getList(PageInfo pageinfo) {
 		log.info("getTweetList........");
-		return new ResponseEntity<>(tweetService.getList(new PageInfo(page, 10)), HttpStatus.OK);
-		
+		return new ResponseEntity<>(tweetService.getList(pageinfo), HttpStatus.OK);
 	}
 	
 	
 	//트윗 하나 조회
 	@GetMapping(value = "/{tid}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public TweetVO getTweet(@PathVariable("tid")Long tid) {
+	public TweetDTO getTweet(@PathVariable("tid")Long tid) {
 		log.info("(getTweet........" + tid);
 		
 		return tweetService.get(tid);

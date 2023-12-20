@@ -3,7 +3,8 @@
 <configuration>	
 	<typeAliases>
 		<typeAlias type="com.example.albatross.domain.vo.UserVO" alias="userVO"/>
-		<typeAlias type="com.example.albatross.domain.vo.TweetVO" alias="TweetVO"/>
+		<typeAlias type="com.example.albatross.domain.vo.UserVO" alias="userVO"/>
+		<typeAlias type="com.example.albatross.domain.vo.TweetDTO" alias="tweetDTO"/>
 	</typeAliases>
 	
 </configuration>

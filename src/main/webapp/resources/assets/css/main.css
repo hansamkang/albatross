@@ -13,6 +13,8 @@ body {
   display: flex;
   align-items: center;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .sidebarOption .material-icons,
@@ -80,6 +82,8 @@ body {
 .sidebarUserImage img{
   border-radius: 50%;
   height: 60px; 
+  width: 60px; /* 너비를 높이와 동일하게 설정 */
+  object-fit: cover; /* 이미지가 요소에 맞춰 잘리도록 설정 */
 }
 
 .sidebarUserInfo{
@@ -124,6 +128,8 @@ body {
 .tweetbox__input img {
   border-radius: 50%;
   height: 50px;
+  width: 50px; /* 너비를 높이와 동일하게 설정 */
+  object-fit: cover; /* 이미지가 요소에 맞춰 잘리도록 설정 */
 }
 
 .tweetBox {
@@ -198,6 +204,8 @@ body {
 .post__avatar img {
   border-radius: 50%;
   height: 50px;
+  width: 50px; /* 너비를 높이와 동일하게 설정 */
+  object-fit: cover; /* 이미지가 요소에 맞춰 잘리도록 설정 */
 }
 
 .post {
@@ -205,6 +213,12 @@ body {
   align-items: flex-start;
   border-bottom: 1px solid var(--twitter-background);
   padding-bottom: 10px;
+}
+
+.postTarget__body img {
+  width: 450px;
+  object-fit: contain;
+  border-radius: 20px;
 }
 
 .post__body img {
@@ -223,6 +237,7 @@ body {
   font-size: 14px !important;
   color: var(--twitter-color);
   margin-right: 5px;
+  margin-left: 3px;
 }
 
 .post__headerSpecial {
@@ -239,6 +254,11 @@ body {
 .post__headerDescription {
   margin-bottom: 10px;
   font-size: 15px;
+}
+
+.postTarget__body {
+  flex: 1;
+  padding: 10px;
 }
 
 .post__body {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.example.albatross.domain.vo.PageInfo;
+import com.example.albatross.domain.vo.TweetDTO;
 import com.example.albatross.domain.vo.TweetVO;
 import com.example.albatross.mapper.TweetMapper;
 
@@ -16,7 +17,7 @@ public class TweetDAOImpl implements TweetDAO {
 	private final TweetMapper tweetMapper;
 	
 	@Override
-	public List<TweetVO> getList(PageInfo info) {
+	public List<TweetDTO> getList(PageInfo info) {
 		return tweetMapper.selectList(info);
 	}
 
@@ -26,7 +27,7 @@ public class TweetDAOImpl implements TweetDAO {
 	}
 
 	@Override
-	public TweetVO get(Long tid) {
+	public TweetDTO get(Long tid) {
 		return tweetMapper.select(tid);
 	}
 
