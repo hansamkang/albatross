@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -49,8 +50,8 @@
             <img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"/>
           </div>
           <div class="sidebarUserInfo">
-            <h2>USER NAME</h2>
-            <p>UID : 0000000000000</p>
+            <h2><sec:authentication property="principal.user.nickname"/></h2>
+            <p><sec:authentication property="principal.user.mail"/></p>
           </div>
         </div>
       </div>
@@ -174,7 +175,7 @@
     // 전역 변수들 
     
     let page; //현재 페이지 index
-    let tempUuid = 1; //임시 유저 아이디
+    let tempUuid = 3; //임시 유저 아이디
     let tempNickName = "KELA";
     
     var maxSize = 1024 * 1024 * 40; //40MB

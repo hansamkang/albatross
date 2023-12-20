@@ -69,9 +69,6 @@ public class TweetController {
 	}
 		
 	//트윗 수정 (실무에선 걍 post쓴데)
-	//ex 바꿀내용 A, B, C
-	// put: 자원의 전체 수정, 자원 내 모든 필드를 전달해야 함 A, B, C 다 바꿔야 함
-	// patch: 자원의 일부 수정, 수정할 필드만 전송. 특정값만 바꿔도 됨. 대신 디폴드 셋팅 해야함
 	@PostMapping(value="/modify/{tid}", consumes ="application/json", produces= {MediaType.TEXT_PLAIN_VALUE})
 	public String modify(@PathVariable Long tid, @RequestBody TweetVO tweet) {
 		log.info("modifyTweet........" + tid);
