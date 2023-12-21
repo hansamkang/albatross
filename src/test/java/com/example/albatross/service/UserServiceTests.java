@@ -18,12 +18,12 @@ public class UserServiceTests {
 	@Autowired
 	UserService userService;
 	
-	/*
+	
 	@Test
 	public void getTest() {
-		log.info(userService.get(28L));
+		log.info(userService.get(32L));
 	}
-	*/
+	
 	
 	/*
 	@Test

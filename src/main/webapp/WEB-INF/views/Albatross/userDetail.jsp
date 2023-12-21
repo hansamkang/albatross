@@ -19,11 +19,9 @@
     />
   </head>
   <body>
-  
-  	<!-- JSTL 전역 변수 설정 -->
+  	<!-- 전역 변수 설정 -->
   	<sec:authentication var="userAuthentication" property="principal" />
   	<c:set var="profileLink" value="${userAuthentication.user.profile_link}" />
-   	<c:set var="secUuid" value="${userAuthentication.user.uuid}" />
     
     <!-- sidebar starts -->
     <div class="sidebar">
@@ -49,15 +47,12 @@
   		<h2>More</h2>
 	</a>
 
-      
-
-      
       <button class="sidebar__tweet">Tweet</button>
-      
+    
     </div>
     <!-- sidebar ends -->
-    
-<div class = "sidebarBottom">
+	
+	<div class = "sidebarBottom">
         <div class="sidebarOption2">
           <div class="sidebarUserImage">
           	<c:choose>
@@ -76,92 +71,47 @@
            <span id="logOut" class="material-icons" style="margin-left:10px;"> logout </span>
         </div>
     </div>
-    
+      
     <!-- feed starts -->
     <div class="feed">
       <div class="feed__header">
-        <h2>Post Detail</h2>
+        <h2>Home</h2>
       </div>
-	<!-------------------------------------------------- target Post----------------------------------- -->
-	<div class="tweetTarget"> 
-	<div class="post">
-        <div class="post__avatar">
-          <c:choose>
-          		<c:when test="${TweetDTO.profile_link == null}">
-          			<img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"/>
-          		</c:when>
+		<!------------------------------------------- Profile ------------------------------------- -->
+      		<div class="profile">
+        		<div class="background-image">
+            		<img class="background-img" src="https://source.unsplash.com/random" alt="Background Image">
+        		</div>
+        		
+        		<c:choose>
+          			<c:when test="${UserVO.profile_link == null}">
+          				<img class="profile-image" src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"/>
+          			</c:when>
           		<c:otherwise>
-          			<img src="/images/${TweetDTO.profile_link}"/>
+          			<img class="profile-image" src="/images/${UserVO.profile_link}"/>
           		</c:otherwise> 
-          	</c:choose>
-        </div>
+          		</c:choose>
 
-        <div class="postTarget__body">
-          <div class="post__header">
-            <div class="post__headerText">
-              <h3>
-                ${TweetDTO.nickname}
-                <span class="post__headerSpecial">
-                	<span class="material-icons post__badge"> verified </span>@KR${String.format("%010d", TweetDTO.uuid)}</span>
-              </h3>
-            </div>
-            <div class="post__headerDescription">
-              <p>${TweetDTO.content}</p>
-            </div>
-          </div>
-          
-        <c:if test="${TweetDTO.image_link != null}">
-                <img src="/images/${TweetDTO.image_link}"/>		
-		</c:if>
-          
-          <div class="post__footer">
-            <span class="material-icons"> repeat </span>
-            <span id="like-icon" class="material-icons not-liked"> favorite_border </span>
-            <span class="material-icons"> reply </span>
-            <c:if test="${TweetDTO.uuid == secUuid}">
-                <span id ="deleteIcon" class="material-icons"> delete </span>		
-			</c:if>
-          </div>
-        </div>
-      </div>
-	</div>
-      <!-------------------------------------------------- tweetbox starts----------------------------------- -->
-      <div class="tweetBox">
-        <form>
-          <div class = "uploadResult">
-			<ul></ul>
-		  </div>
-          <div class="tweetbox__input">
-            <c:choose>
-          		<c:when test="${profileLink == null}">
-          			<img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"/>
-          		</c:when>
-          		<c:otherwise>
-          			<img src="/images/<sec:authentication property="principal.user.profile_link"/>"/>
-          		</c:otherwise> 
-          	</c:choose>
-            <div id ="textAreaDiv">
-              <textarea name = "tweetTextArea" rows="5" cols="30" placeholder="Input Reply!!"></textarea>
-            </div>
-            
-          </div>
+      		</div>
+      	<div class="user-info">
+      		<div class="join-info">
+        		<div class="user-nickname">${UserVO.nickname}</div>
+        	</div>
+        		<div class="user-tag">@KR${UserVO.uuid}</div>
+        		<div>${UserVO.mail}</div>
 
-          <div class="button-group">
-          	
-            <label for="file-upload" class="tweetBox__imageButton">
-  				<span class="material-icons"> image </span>
-			</label>
-			<input id="file-upload" type="file" style="display: none;">
-            <button class="tweetBox__tweetButton">Tweet</button>
-          </div>
-        
-        </form>
-      </div>
-      <!-- tweetbox ends -->
+        	<div class="user-bio" style="margin-top: 5%; margin-bottom: 2%;">${UserVO.intro}</div>
+        	<div class="join-info">
+          		<span class="material-icons widgets__calendarIcon"> calendar_month </span>
+          		<div class="user-join-date">가입일:${UserVO.joindate}</div>
+        	</div>
+      	</div>
+      <!------------------------------------------- Profile END ------------------------------------- -->  	
 	<!------------------------------------------- tweetBoard ------------------------------------- -->
-      <div class = tweetBoard>  
-      <!-------------------------------------------여기에 글들 추가 될꺼임!! ------------------------------------- -->
-		</div>    
+     	<div class = tweetBoard>  
+     		
+		</div>
+		  \
     </div>
     <!-- feed ends -->
 	
@@ -219,19 +169,19 @@
     showList();
     
  // ----------------------------------------------------------------함수 라인-----------------------------------------------
-    //댓글 리스트 보여주는 함수  
+    //트윗 리스트 보여주는 함수  
     function showList(page){
 	 	if(page == null){
 	 		page = 1;
 	 		tweetBoardDiv.html("");
 	 	}
+	 	var tempUuid = ${UserVO.uuid};
 	 	
-	 	var tempReftid = ${TweetDTO.tid};
     	tweetService.getTweetList({
     		page : page,
-    		str : "TR",
-    		type : "reply",
-    		reftid : tempReftid
+    		str : "TU",
+    		type : "nomal",
+    		uuid : tempUuid
     	},function(result){
     		console.log("main.jsp 의 함수");
     		console.log(result);
@@ -334,14 +284,6 @@
  $(document).on('click', '.post__profile', function() {
     var url = $(this).data('url'); // Get the redirect url
     window.location.href = url; // Redirect to the url
-});
- 
- // post 프로필 이미지 누를 시 리다이렉트
- $(document).on('click', '#deleteIcon', function() {
-	 alert("삭제되었습니다.");
-	var tempTid =${TweetDTO.tid};
-	tweetService.del(tempTid);
-	 window.location.href = "/Albatross/main";
 });  
  
  	// 트윗 작성 
@@ -353,16 +295,13 @@
 
     	if(textValue !== ""){
         	//일단 유저아이디 이렇게 + 이미지 링크 넣어야 함
+        	console.log("큰 if안에 들어옴");
         	var tempUuid ='<sec:authentication property="principal.user.uuid"/>';
 			var tempImgPath = $('#tempImgPath').text();				
-			var	tempT_type = "reply"; //나중에 이거 글 수정에서는 바뀌도록 변경해야 함
-        	var tempRefTid = ${TweetDTO.tid};
-			
+				
         	tweetService.add({
             	uuid : tempUuid,
             	content: textValue,
-            	t_type : tempT_type,
-            	ref_tid : tempRefTid,
             	image_link : tempImgPath
         	},function(){
             	$("textarea[name='tweetTextArea']").val("");

@@ -10,7 +10,7 @@ public interface UserService {
 	// 삽입
 	public boolean add(UserVO user);
 				
-	// 글 하나 가져오기
+	// 유저정보 하나 가져오기
 	public UserVO get(Long uuid);
 				
 	// 삭제

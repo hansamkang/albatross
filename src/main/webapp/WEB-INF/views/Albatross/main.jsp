@@ -47,13 +47,13 @@
   		<h2>More</h2>
 	</a>
 
-      
-
-      
       <button class="sidebar__tweet">Tweet</button>
-      
-      <div class = "sidebarBottom">
-        <div class="sidebarOption">
+    
+    </div>
+    <!-- sidebar ends -->
+	
+	<div class = "sidebarBottom">
+        <div class="sidebarOption2">
           <div class="sidebarUserImage">
           	<c:choose>
           		<c:when test="${profileLink == null}">
@@ -64,15 +64,14 @@
           		</c:otherwise> 
           	</c:choose>
           </div>
-          <div class="sidebarUserInfo">
+          <div class="sidebarUserInfo" style="margin-left:10px;">
             <h2><sec:authentication property="principal.user.nickname"/></h2>
             <p><sec:authentication property="principal.user.mail"/></p>
           </div>
+           <span id="logOut" class="material-icons" style="margin-left:10px;"> logout </span>
         </div>
-      </div>
     </div>
-    <!-- sidebar ends -->
-
+      
     <!-- feed starts -->
     <div class="feed">
       <div class="feed__header">
@@ -233,8 +232,8 @@
 				else{
 					str += `<img src="/images/` + list[i].profile_link + `"`;	
 				}
-				str += `alt="" class="post__profile" data-url="/Albatross/main"/> </div>`;
-				str += `<div class="post__body" data-url="/Albatross/tweetDetail?tid=53">`;
+				str += `alt="" class="post__profile" data-url="/Albatross/userDetail?uuid=`+ list[i].uuid + `"/> </div>`;
+				str += `<div class="post__body" data-url="/Albatross/tweetDetail?tid=`+ list[i].tid + `">`;
 				str += `<div class="post__header">`;
 				str += `<div class="post__headerText">`;
 				str += `<h3> ` + list[i].nickname;

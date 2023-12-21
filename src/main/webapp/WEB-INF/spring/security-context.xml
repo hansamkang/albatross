@@ -20,6 +20,7 @@
 	<security:intercept-url pattern="/Albatross/register" access="permitAll"/>
 	<security:intercept-url pattern="/Albatross/main" access="hasRole('ROLE_USER')"/>
 	<security:intercept-url pattern="/Albatross/tweetDetail" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/Albatross/userDetail" access="hasRole('ROLE_USER')"/>
 	<security:intercept-url pattern="/Albatross/admin" access="hasRole('ROLE_ADMIN')"/> 
 	
 	 

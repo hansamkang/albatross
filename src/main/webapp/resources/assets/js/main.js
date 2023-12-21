@@ -1,3 +1,4 @@
+/*
 document.getElementById('like-icon').addEventListener('click', function() {
     if(this.textContent === 'favorite_border') {
         this.textContent = 'favorite';
@@ -8,4 +9,9 @@ document.getElementById('like-icon').addEventListener('click', function() {
         this.classList.remove('liked');
         this.classList.add('not-liked');
     }
+});
+*/
+document.querySelector('#logOut').addEventListener('click', function() {
+    alert("로그아웃 되었습니다.");
+    window.location.replace("/Albatross/Logout");
 });

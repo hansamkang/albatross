@@ -6,10 +6,39 @@ let tweetService = (function(){
 			});
 	}
 	
+	//트윗 삭제
+	function del(tid){
+		console.log('트윗 삭제 함수 들어옴!');
+		$.ajax({
+    		url: '/tweet/' + tid,
+    		type: 'DELETE',
+    		success: function(result) {
+      		// 서버에서 "success" 또는 "fail" 문자열을 반환하므로, 이를 확인하여 처리합니다.
+      			if(result === 'success') {
+        			console.log('트윗 삭제 성공!');
+      			} else {
+        			console.log('트윗 삭제 실패!');
+      			}
+    		},
+    		error: function(request, status, error) {
+      			console.log('Ajax 요청 실패!');
+      			console.log('status:', status);
+      			console.log('error:', error);
+    		}
+  		});
+	}
+	
+	
+	//트윗 가져오기
 	function getTweetList(param, callback, error){
+		
  		let page = param.page || 1; //let variable = a || b; ----> a가  값이 없으면 b로 사용된다. 
- 		let tempType = param.type || "T"
- 		let tempKeyword = param.keyword || "nomal"
+ 		let tempStr = param.str || "T";
+ 		let tempType = param.type || "nomal";
+ 		let tempUuid = param.uuid || null;
+ 		let tempContent = param.content || null;
+ 		let tempRefTid = param.reftid || null; 
+ 		
  		$.ajax({
     		url: '/tweet/list',
     		type: 'GET',
@@ -17,8 +46,11 @@ let tweetService = (function(){
     		data: {
         		pageNum: page, 
         		amount: 10, 
-        		type: tempType,
-        		keyword: tempKeyword
+        		str: tempStr,
+        		t_type: tempType,
+        		uuid: tempUuid,
+        		content: tempContent,
+        		ref_tid : tempRefTid
     		},
     		success: function(result) {
         		if(callback){
@@ -48,5 +80,6 @@ let tweetService = (function(){
  		});
  	}
  	
-	return{get:get, getTweetList:getTweetList, add: add}
+ 	
+	return{get:get, getTweetList:getTweetList, add: add, del: del}
 })();
