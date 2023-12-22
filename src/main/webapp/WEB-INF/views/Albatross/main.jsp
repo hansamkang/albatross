@@ -32,7 +32,7 @@
   		<h2>Home</h2>
 	</a>
     
-    <a href="/Albatross/main" class="sidebarOption">
+    <a href="/Albatross/userDetail?uuid=${userAuthentication.user.uuid}" class="sidebarOption">
   		<span class="material-icons">perm_identity</span>
   		<h2>Profile</h2>
 	</a>
@@ -112,38 +112,11 @@
       </div>
       <!-- tweetbox ends -->
 	<!------------------------------------------- tweetBoard ------------------------------------- -->
-      <div class = tweetBoard>  
+      <div id="tweetBoard" class = "tweetBoard">  
       <!-- post starts -->
-      <div class="post">
-        <div class="post__avatar">
-          <img
-            src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"
-            alt=""
-          />
-        </div>
-
-        <div class="post__body">
-          <div class="post__header">
-            <div class="post__headerText">
-              <h3>
-                Somanath Goudar
-                <span class="post__headerSpecial"
-                  ><span class="material-icons post__badge"> verified </span>@somanathg</span
-                >
-              </h3>
-            </div>
-            <div class="post__headerDescription">
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-          </div>
-          <img src="https://www.focus2move.com/wp-content/uploads/2020/01/Tesla-Roadster-2020-1024-03.jpg" alt="" />
-          <div class="post__footer">
-            <span class="material-icons"> repeat </span>
-            <span id="like-icon" class="material-icons not-liked"> favorite_border </span>
-            <span class="material-icons"> reply </span>
-          </div>
-        </div>
-      </div>
+      
+      
+      
       <!-- post ends -->
 		</div>    
     </div>
@@ -160,19 +133,11 @@
         <h2>What's happening?</h2>
         <blockquote class="twitter-tweet">
           <p lang="en" dir="ltr">
-            Sunsets don&#39;t get much better than this one over
-            <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>.
-            <a href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw"
-              >#nature</a
-            >
-            <a href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw"
-              >#sunset</a
-            >
-            <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a>
+            🕶️ 
           </p>
-          &mdash; US Department of the Interior (@Interior)
-          <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw"
-            >May 5, 2014</a
+          &mdash; NewJeans (@NewJeans_ADOR)
+          <a href="https://twitter.com/NewJeans_ADOR/status/1735072119825031316"
+            >Dec 20, 2023</a
           >
         </blockquote>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -191,29 +156,25 @@
     <script>
     const tweetBoardDiv = $("div.tweetBoard");
     // 전역 변수들 
-    
-    let page; //현재 페이지 index
-    
+        
     var maxSize = 1024 * 1024 * 40; //40MB
     var $uploadResult = $(".uploadResult ul");
     var regex = new RegExp("(.*/)\.(exe|sh|zip|alz)$");
     
+    let index =1;
     // ----------------------------------------------------------------
     //함수 실행
-    showList();
+    showList(index);
     
  // ----------------------------------------------------------------함수 라인-----------------------------------------------
     //트윗 리스트 보여주는 함수  
     function showList(page){
-	 	if(page == null){
-	 		page = 1;
-	 		tweetBoardDiv.html("");
-	 	}
-	 	
+	
+		console.log(page +" 페이지 진입");
+		
     	tweetService.getTweetList({
     		page : page,
     	},function(result){
-    		console.log("main.jsp 의 함수");
     		console.log(result);
     		let list = result;
     		let str ="";
@@ -241,7 +202,7 @@
 				str += `</h3>`;
 				str += `</div>`;
 				str += `<div class="post__headerDescription">`;
-				str += `<p>`+ list[i].content + `<p>`;
+				str += `<p style="max-width: 509px;">`+ list[i].content + `<p>`;
 				str += `</div></div>`;
 				// 이미지
 				if(list[i].image_link != null){
@@ -255,9 +216,12 @@
 				str += `</div>`;
 				str += `</div>`;
 			}
-    		
-    		tweetBoardDiv.append(str);
-    		page++;
+    		if(page == 1){
+    			tweetBoardDiv.html(str);	
+    		}else{
+    			tweetBoardDiv.append(str);
+    		}
+
     	});
     }
     
@@ -315,6 +279,35 @@
     var url = $(this).data('url'); // Get the redirect url
     window.location.href = url; // Redirect to the url
 });  
+
+ let throttleCheck =false;
+ 
+ //무한 스크롤 
+$(function() {
+  $('.tweetBoard').scroll(function() {
+    let $div = $(this);
+    let scrollTop = $div.scrollTop();
+    let divHeight = $div.height();
+    
+    let $contentDiv = $('.tweetBoard'); // 여기에 확인하려는 div의 id를 입력하세요.
+    let contentDivHeight = $contentDiv.outerHeight();
+    
+    console.log(scrollTop + divHeight >= contentDivHeight); // console.log 메소드 호출 추가
+    
+    let windowHeight = $(window).height(); // windowHeight 변수 할당
+    let documentHeight = $(document).height(); // documentHeight 변수 할당
+    
+    if(scrollTop + windowHeight + 1 >= documentHeight) {
+      if(!throttleCheck) {
+        throttleCheck = setTimeout(function() {
+          index++;
+          showList(index);
+          throttleCheck = false;
+        }, 500);
+      }
+    }
+  })
+});
  
  	// 트윗 작성 
     $("button.tweetBox__tweetButton").on("click", function(e){
@@ -337,8 +330,8 @@
             	$("textarea[name='tweetTextArea']").val("");
             	$(".uploadResult ul li").remove();
             	
-            	page=null;
-            	showList();
+            	index=1;
+            	showList(index);
         	});     
     	}
     	else{

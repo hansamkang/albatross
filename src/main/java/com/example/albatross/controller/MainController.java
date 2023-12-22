@@ -42,6 +42,13 @@ public class MainController {
 		model.addAttribute("UserVO", userService.get(uuid));
 	}
 	
+	@GetMapping("/edit")
+	public void userEdit(Long uuid, Model model) {
+		log.info("MainContorller = /edit에 들어왔음 ");
+		log.info("MainContorller = /edit uuid = " + uuid);
+		model.addAttribute("UserVO", userService.get(uuid));
+	}
+	
 	//관리자 계정으로만 진입가능
 	@GetMapping("/admin")
 	public void doAdmin() {

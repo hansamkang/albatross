@@ -50,7 +50,7 @@ public class TweetServiceTests {
 	
 	@Test
 	public void getListTest() {
-		tweetService.getList(new PageInfo(1,10,"TU", "nomal", 3L, null, null));
+		tweetService.getList(new PageInfo(2,10,"T", "nomal", null, null, null));
 	}
 	
 }

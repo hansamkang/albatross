@@ -11,7 +11,7 @@
                             (T_TYPE = #{t_type})
                         </when>
                         <when test="str == 'U'.toString()">
-                            (a.UUID = #{uuid})
+                            (UUID = #{uuid})
                         </when>
                         <when test="str == 'C'.toString()">
                             (CONTENT LIKE '%' || #{content} || '%')
@@ -61,19 +61,19 @@
 	</update>
 	
 	<select id="selectList" resultType="TweetDTO">
-		SELECT *
+		SELECT TID, a.UUID, T_TYPE, REF_TID, CONTENT, IMAGE_LINK, REGDATE, UPDATEDATE, MAIL, NICKNAME, PROFILE_LINK
 		FROM
 		(
-			SELECT /*+ INDEX_DESC(ATT_TWEET, SYS_C0011116)*/ 
-			ROWNUM RN, TID, a.UUID, T_TYPE, REF_TID, CONTENT, IMAGE_LINK, REGDATE, UPDATEDATE, MAIL, NICKNAME, PROFILE_LINK
-			FROM ATT_TWEET a LEFT OUTER JOIN ATT_USER b
-			ON a.uuid = b.uuid
+			SELECT /*+ INDEX_DESC(ATT_TWEET, SYS_C0011116)*/
+			ROWNUM RN, TID, UUID, T_TYPE, REF_TID, CONTENT, IMAGE_LINK, REGDATE, UPDATEDATE
+			FROM ATT_TWEET
 			WHERE 
 			<include refid ="search"/>
 			<![CDATA[
 				ROWNUM <= #{pageNum} * #{amount}
 			]]>
-		)
+		)a LEFT OUTER JOIN ATT_USER b
+		ON a.uuid = b.uuid
 		<![CDATA[
 		WHERE RN > (#{pageNum}-1) * #{amount}
 		]]>

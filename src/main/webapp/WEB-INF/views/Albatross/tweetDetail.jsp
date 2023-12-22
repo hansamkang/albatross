@@ -23,7 +23,6 @@
   	<!-- JSTL 전역 변수 설정 -->
   	<sec:authentication var="userAuthentication" property="principal" />
   	<c:set var="profileLink" value="${userAuthentication.user.profile_link}" />
-   	<c:set var="secUuid" value="${userAuthentication.user.uuid}" />
     
     <!-- sidebar starts -->
     <div class="sidebar">
@@ -34,7 +33,7 @@
   		<h2>Home</h2>
 	</a>
     
-    <a href="/Albatross/main" class="sidebarOption">
+    <a href="/Albatross/userDetail?uuid=${userAuthentication.user.uuid}" class="sidebarOption">
   		<span class="material-icons">perm_identity</span>
   		<h2>Profile</h2>
 	</a>
@@ -88,10 +87,10 @@
         <div class="post__avatar">
           <c:choose>
           		<c:when test="${TweetDTO.profile_link == null}">
-          			<img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"/>
+          			<img class="post__profile" data-url="/Albatross/userDetail?uuid=${TweetDTO.uuid}" src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"/>
           		</c:when>
           		<c:otherwise>
-          			<img src="/images/${TweetDTO.profile_link}"/>
+          			<img class="post__profile" data-url="/Albatross/userDetail?uuid=${TweetDTO.uuid}" src="/images/${TweetDTO.profile_link}"/>
           		</c:otherwise> 
           	</c:choose>
         </div>
@@ -141,7 +140,7 @@
           		</c:otherwise> 
           	</c:choose>
             <div id ="textAreaDiv">
-              <textarea name = "tweetTextArea" rows="5" cols="30" placeholder="Input Reply!!"></textarea>
+              <textarea name = "tweetTextArea" rows="2" cols="30" placeholder="Input Reply!!"></textarea>
             </div>
             
           </div>
@@ -176,19 +175,11 @@
         <h2>What's happening?</h2>
         <blockquote class="twitter-tweet">
           <p lang="en" dir="ltr">
-            Sunsets don&#39;t get much better than this one over
-            <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>.
-            <a href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw"
-              >#nature</a
-            >
-            <a href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw"
-              >#sunset</a
-            >
-            <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a>
+            🕶️ 
           </p>
-          &mdash; US Department of the Interior (@Interior)
-          <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw"
-            >May 5, 2014</a
+          &mdash; NewJeans (@NewJeans_ADOR)
+          <a href="https://twitter.com/NewJeans_ADOR/status/1737669221860180151"
+            >Dec 20, 2023</a
           >
         </blockquote>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -261,7 +252,7 @@
 				str += `</h3>`;
 				str += `</div>`;
 				str += `<div class="post__headerDescription">`;
-				str += `<p>`+ list[i].content + `<p>`;
+				str += `<p style="max-width: 509px;">`+ list[i].content + `<p>`;
 				str += `</div></div>`;
 				// 이미지
 				if(list[i].image_link != null){

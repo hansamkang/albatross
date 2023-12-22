@@ -418,6 +418,13 @@ body {
   align-items: center;
 }
 
+.widgets__profileIcon {
+  color: grey;
+  font-size: 50px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
 .widgets__calendarIcon {
   color: grey;
   margin-right: 5px;

@@ -35,9 +35,17 @@ let userService = (function(){
  	//유저 수정
  	function modify(user, callback){
  		console.log("modify User for js....."+user);
+ 		
+ 		if(user.intro == ""){
+			user.intro = null;
+		}
+		if(user.profile_link == ""){
+			user.profile_link = null;
+		}
+		
         $.ajax({
-            url: "/user/modify" + user.uuid,
-            type: "put",
+            url: "/user/modify/" + user.uuid,
+            type: "post",
             data: JSON.stringify(user),
             contentType:"application/json; charset=utf-8",
             success: function(result){
@@ -55,5 +63,5 @@ let userService = (function(){
     	
     }
     
-	return{get:get, add: add, checkMail:checkMail}
+	return{get:get, add: add, checkMail:checkMail, modify:modify}
 })();

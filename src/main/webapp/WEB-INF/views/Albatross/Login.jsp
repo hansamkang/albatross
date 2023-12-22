@@ -31,10 +31,10 @@
         <div class="box box-two">
             <form id='loginForm' method='post' action="/login">
             	<div>
-					<input type='text' name='username' value='hansamkang@naver.com'>
+					<input type='text' name='username' value='honto23@naver.com'>
 				</div>
 				<div>
-					<input type='password' name='password' value='sam4001!@#'>
+					<input type='password' name='password' value='111111'>
 				</div>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			</form>

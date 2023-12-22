@@ -22,7 +22,7 @@
   	<!-- 전역 변수 설정 -->
   	<sec:authentication var="userAuthentication" property="principal" />
   	<c:set var="profileLink" value="${userAuthentication.user.profile_link}" />
-    
+
     <!-- sidebar starts -->
     <div class="sidebar">
       <i class="fab fa-twitter"></i>
@@ -32,7 +32,7 @@
   		<h2>Home</h2>
 	</a>
     
-    <a href="/Albatross/main" class="sidebarOption">
+    <a href="/Albatross/userDetail?uuid=${userAuthentication.user.uuid}" class="sidebarOption">
   		<span class="material-icons">perm_identity</span>
   		<h2>Profile</h2>
 	</a>
@@ -96,6 +96,12 @@
       	<div class="user-info">
       		<div class="join-info">
         		<div class="user-nickname">${UserVO.nickname}</div>
+        		<span class="material-icons post__badge"> verified </span>
+        		<span class="material-icons widgets__profileIcon" style=""> add </span>
+        		<c:if test="${UserVO.uuid == userAuthentication.user.uuid}">
+                	<span id="editProfileIcon" class="material-icons widgets__profileIcon" data-url="/Albatross/edit?uuid=${userAuthentication.user.uuid}" > edit_note </span>	
+				</c:if>
+        	
         	</div>
         		<div class="user-tag">@KR${UserVO.uuid}</div>
         		<div>${UserVO.mail}</div>
@@ -126,19 +132,11 @@
         <h2>What's happening?</h2>
         <blockquote class="twitter-tweet">
           <p lang="en" dir="ltr">
-            Sunsets don&#39;t get much better than this one over
-            <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>.
-            <a href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw"
-              >#nature</a
-            >
-            <a href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw"
-              >#sunset</a
-            >
-            <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a>
+            🕶️ 
           </p>
-          &mdash; US Department of the Interior (@Interior)
-          <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw"
-            >May 5, 2014</a
+          &mdash; NewJeans (@NewJeans_ADOR)
+          <a href="https://twitter.com/NewJeans_ADOR/status/1735072119825031316"
+            >Dec 20, 2023</a
           >
         </blockquote>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -211,7 +209,7 @@
 				str += `</h3>`;
 				str += `</div>`;
 				str += `<div class="post__headerDescription">`;
-				str += `<p>`+ list[i].content + `<p>`;
+				str += `<p style="max-width: 509px;">`+ list[i].content + `<p>`;
 				str += `</div></div>`;
 				// 이미지
 				if(list[i].image_link != null){
@@ -285,6 +283,13 @@
     var url = $(this).data('url'); // Get the redirect url
     window.location.href = url; // Redirect to the url
 });  
+ 
+ // editProfileIcon 누르면 수정페이지로 진입
+ $(document).on('click', '#editProfileIcon', function() {
+	    var url = $(this).data('url'); // Get the redirect url
+	    window.location.href = url; // Redirect to the url
+});  
+ 
  
  	// 트윗 작성 
     $("button.tweetBox__tweetButton").on("click", function(e){
