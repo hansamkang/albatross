@@ -25,7 +25,7 @@
     
     <!-- sidebar starts -->
     <div class="sidebar">
-      <i class="fab fa-twitter"></i>
+      <img id="mainImg" src="/resources/images/albatrossIcon.png" style="width:40px; height:40px; margin-left:20px;"/>
       
     <a href="/Albatross/main" class="sidebarOption active">
   		<span class="material-icons">home</span>
@@ -126,7 +126,7 @@
     <div class="widgets">
       <div class="widgets__input">
         <span class="material-icons widgets__searchIcon"> search </span>
-        <input type="text" placeholder="Search Twitter" />
+        <input id="searchInput" type="text" placeholder="Search Twitter" />
       </div>
 
       <div class="widgets__widgetContainer">
@@ -268,6 +268,22 @@
 	}
     
  // ----------------------------------------------------------------이벤트 함수-----------------------------------------------
+ 
+ //검색
+ var searchInput = document.getElementById('searchInput');
+
+ searchInput.addEventListener('keydown', function(event) {
+	    if (event.key === 'Enter' || event.keyCode === 13) {
+	    	if(searchInput.value !== null && searchInput.value.trim() !== ''){
+	    		console.log("1번");
+	    		window.location.href = "/Albatross/main"; 	
+	    	}
+	      
+	    }
+	});
+ 
+ 
+ 
  // post 글 누를 시 리다이렉트
  $(document).on('click', '.post__body', function() {
     var url = $(this).data('url'); // Get the redirect url
@@ -280,35 +296,31 @@
     window.location.href = url; // Redirect to the url
 });  
 
- let throttleCheck =false;
- 
  //무한 스크롤 
+ var throttleCheck;
+ 
 $(function() {
-  $('.tweetBoard').scroll(function() {
-    let $div = $(this);
-    let scrollTop = $div.scrollTop();
-    let divHeight = $div.height();
-    
-    let $contentDiv = $('.tweetBoard'); // 여기에 확인하려는 div의 id를 입력하세요.
-    let contentDivHeight = $contentDiv.outerHeight();
-    
-    console.log(scrollTop + divHeight >= contentDivHeight); // console.log 메소드 호출 추가
-    
-    let windowHeight = $(window).height(); // windowHeight 변수 할당
-    let documentHeight = $(document).height(); // documentHeight 변수 할당
-    
-    if(scrollTop + windowHeight + 1 >= documentHeight) {
+  $('.feed').scroll(function() {
+    //여기 부분 작성해줘
+    console.log(" 스크롤");
+    var scrollPosition = $('.feed').scrollTop()+$('.tweetBox').height()+$('.feed__header').height()+500;
+    var threshold = $('.tweetBoard').height(); // 여유분으로 100을 뺍니다.
+    console.log("1."+scrollPosition);
+    console.log("2."+threshold);
+    console.log("3."+(scrollPosition >= threshold));
+    if(scrollPosition >= threshold) {
+    	console.log("작동");
       if(!throttleCheck) {
         throttleCheck = setTimeout(function() {
           index++;
           showList(index);
           throttleCheck = false;
-        }, 500);
+        }, 1000);
       }
     }
   })
 });
- 
+
  	// 트윗 작성 
     $("button.tweetBox__tweetButton").on("click", function(e){
     	e.preventDefault();

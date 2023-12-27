@@ -26,15 +26,15 @@
 <body>
     <div class="container">
         <div class="box box-one">
-            <i class="fab fa-twitter"><img src="https://img.icons8.com/color/50/000000/twitter--v1.png"/></i>
+            <img id="mainImg" src="/resources/images/albatross.png"/>
         </div>
         <div class="box box-two">
             <form id='loginForm' method='post' action="/login">
             	<div>
-					<input type='text' name='username' value='honto23@naver.com'>
+					<input type='text' name='username' placeholder='email'>
 				</div>
 				<div>
-					<input type='password' name='password' value='111111'>
+					<input type='password' name='password' placeholder='password'>
 				</div>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			</form>

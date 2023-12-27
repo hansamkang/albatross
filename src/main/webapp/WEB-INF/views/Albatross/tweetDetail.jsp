@@ -26,7 +26,7 @@
     
     <!-- sidebar starts -->
     <div class="sidebar">
-      <i class="fab fa-twitter"></i>
+      <img id="mainImg" src="/resources/images/albatrossIcon.png" style="width:40px; height:40px; margin-left:20px;"/>
       
     <a href="/Albatross/main" class="sidebarOption active">
   		<span class="material-icons">home</span>

@@ -8,8 +8,6 @@ body{
     left: 50%;
     transform: translate(-50%,-50%);
     background: #fff;
-    width: 450px;
-    height: 550px;
     border-radius: 20px;
     box-shadow: 0 10px rgb(110, 110, 110,.2);
     display: flex;
@@ -85,4 +83,9 @@ body{
 .container p a{
     text-decoration: none;
     color: var(--twitter-color);
+}
+
+#mainImg{
+	width:50%;
+	height:50%;
 }
