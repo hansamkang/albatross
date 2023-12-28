@@ -49,6 +49,13 @@ public class MainController {
 		model.addAttribute("UserVO", userService.get(uuid));
 	}
 	
+	@GetMapping("/search")
+	public void search(String str, Model model) {
+		log.info("MainContorller = /search에 들어왔음 ");
+		log.info("MainContorller = /search str = " + str);
+		model.addAttribute("str", str);
+	}
+	
 	//관리자 계정으로만 진입가능
 	@GetMapping("/admin")
 	public void doAdmin() {

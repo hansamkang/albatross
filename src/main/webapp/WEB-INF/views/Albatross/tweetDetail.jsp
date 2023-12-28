@@ -117,7 +117,7 @@
             <span class="material-icons"> repeat </span>
             <span id="like-icon" class="material-icons not-liked"> favorite_border </span>
             <span class="material-icons"> reply </span>
-            <c:if test="${TweetDTO.uuid == secUuid}">
+            <c:if test="${TweetDTO.uuid == userAuthentication.user.uuid}">
                 <span id ="deleteIcon" class="material-icons"> delete </span>		
 			</c:if>
           </div>
@@ -315,6 +315,21 @@
 	}
     
  // ----------------------------------------------------------------이벤트 함수-----------------------------------------------
+  //검색
+ var searchInput = document.getElementById('searchInput');
+
+ searchInput.addEventListener('keydown', function(event) {
+	    if (event.key === 'Enter' || event.keyCode === 13) {
+	    	if(searchInput.value !== null && searchInput.value.trim() !== ''){
+	    		console.log("1번");
+	    		window.location.href = "/Albatross/search/?str="+searchInput.value; 		
+	    	}
+	      
+	    }
+	});
+ 
+ 
+ 
  // post 글 누를 시 리다이렉트
  $(document).on('click', '.post__body', function() {
     var url = $(this).data('url'); // Get the redirect url

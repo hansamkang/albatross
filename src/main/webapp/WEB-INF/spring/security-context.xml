@@ -22,6 +22,7 @@
 	<security:intercept-url pattern="/Albatross/tweetDetail" access="hasRole('ROLE_USER')"/>
 	<security:intercept-url pattern="/Albatross/userDetail" access="hasRole('ROLE_USER')"/>
 	<security:intercept-url pattern="/Albatross/edit" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/Albatross/search" access="hasRole('ROLE_USER')"/>
 	<security:intercept-url pattern="/Albatross/admin" access="hasRole('ROLE_ADMIN')"/> 
 	
 	 
