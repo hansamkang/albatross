@@ -75,7 +75,7 @@
     <!-- feed starts -->
     <div class="feed">
       <div class="feed__header">
-        <h2>Search</h2>
+        <h2>Home</h2>
       </div>
 
       <!-------------------------------------------------- tweetbox starts----------------------------------- -->
