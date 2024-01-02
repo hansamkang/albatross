@@ -117,7 +117,6 @@
      	<div class = tweetBoard>  
      		
 		</div>
-		  \
     </div>
     <!-- feed ends -->
 	

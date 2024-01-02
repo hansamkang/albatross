@@ -2,6 +2,23 @@
  * 
  */
 let userService = (function(){
+
+	function getD(uuid) {
+    var result = null;
+
+    $.ajax({
+        url: "/user/" + uuid,
+        type: 'get',
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            result = data;
+        }
+    });
+
+   return result;
+}
+	
 	
 	function get(uuid, callback){
 		$.get("/user/" + uuid, function(result){
@@ -63,5 +80,5 @@ let userService = (function(){
     	
     }
     
-	return{get:get, add: add, checkMail:checkMail, modify:modify}
+	return{get:get, add: add, checkMail:checkMail, modify:modify, getD: getD}
 })();

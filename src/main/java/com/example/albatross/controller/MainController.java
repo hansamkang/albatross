@@ -56,6 +56,11 @@ public class MainController {
 		model.addAttribute("str", str);
 	}
 	
+	@GetMapping("/follow")
+	public void follow() {
+		log.info("MainContorller = /follow에 들어왔음 ");
+	}
+	
 	//관리자 계정으로만 진입가능
 	@GetMapping("/admin")
 	public void doAdmin() {

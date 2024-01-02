@@ -37,7 +37,7 @@
   		<h2>Profile</h2>
 	</a>
 	
-	<a href="/Albatross/main" class="sidebarOption">
+	<a href="/Albatross/follow" class="sidebarOption">
   		<span class="material-icons">group</span>
   		<h2>Friends</h2>
 	</a>
