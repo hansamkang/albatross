@@ -3,6 +3,7 @@ let followService = (function(){
 	//팔로우 삭제
 	function remove(fid){
 		console.log('팔로우 삭제 함수 들어옴!');
+		console.log(typeof(fid));
 		$.ajax({
     		url: '/follow/' + fid,
     		type: 'DELETE',
@@ -24,7 +25,7 @@ let followService = (function(){
 	
 
  	// 팔로우 하기
- 	function add(follow, callback){
+ 	function add(follow){
  		console.log("add follow.....");
  		
  		$.ajax({
@@ -33,28 +34,32 @@ let followService = (function(){
  			data:JSON.stringify(follow),
  			contentType: "application/json; charset=utf-8",
  			success: function(result){
- 				if(callback){
- 					callback(result);
- 				}
+				console.log(result);
  			}
  		});
  	}
  	
  	// 팔로우 하기
  	function exists(follow, callback){
- 		console.log("add follow.....");
+ 		console.log("follow exists check.....");
+ 		console.log(follow);
+ 		var result = null;
  		
  		$.ajax({
- 			url:"/follow/exists",
- 			type:"post",
- 			data:JSON.stringify(follow),
- 			contentType: "application/json; charset=utf-8",
- 			success: function(result){
- 				if(callback){
- 					callback(result);
+    		url: '/follow/exists',
+    		type: 'GET',
+    		dataType: 'json',
+    		data: follow,
+    		success: function(data) {
+    			console.log("결과"+data);
+    			if(callback){
+ 					callback(data);
  				}
- 			}
- 		});
+    		},
+    		error: function(error) {
+        		console.error(error);
+    		}
+		});		
  	}
  	
  	//팔로우 목록 가져오기
@@ -67,5 +72,25 @@ let followService = (function(){
 	}
  	
  	
-	return{add: add, remove: remove, exists: exists, get:get}
+ 	function getFid(follow, callback) {
+    $.ajax({
+    		url: '/follow/get',
+    		type: 'GET',
+    		dataType: 'json',
+    		data: follow,
+    		success: function(result) {
+    			console.log("결과"+result);
+    			if(callback){
+ 					callback(result);
+ 				}
+    		},
+    		error: function(error) {
+        		console.error(error);
+    		}
+		});		
+
+	}
+	
+	
+	return{add: add, remove: remove, exists: exists, get:get, getFid:getFid}
 })();

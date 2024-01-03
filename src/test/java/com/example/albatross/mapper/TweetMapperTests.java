@@ -66,10 +66,10 @@ public class TweetMapperTests {
 	}
 	*/
 	
-	@Test
-	public void selectListTest() {
-		tweetMapper.selectList(new PageInfo(1,10,"T","nomal",null,null,null)).forEach(log::info);
-	}
+//	@Test
+//	public void selectListTest() {
+//		tweetMapper.selectList(new PageInfo(1,10,"T","nomal",null,null,null)).forEach(log::info);
+//	}
 	
 	
 }

@@ -64,11 +64,20 @@ public class FollowController {
 	}
 	
 	// 팔로우
-	@PostMapping(value ="/exists" , consumes ="application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> exists(@RequestBody FollowVO follow) {
+	@GetMapping(value = "/exists", 
+			produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Boolean> exists(FollowVO follow) {
 		log.info("exists follow........" + follow);
 			
-		return followService.exists(follow) ? new ResponseEntity<>("true", HttpStatus.OK) :
-			new ResponseEntity<>("false", HttpStatus.OK);
+		return new ResponseEntity<>(followService.exists(follow), HttpStatus.OK);
 	}
+	
+	//fid 가져오기
+	@GetMapping(value = "/get", 
+				produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Integer> getFid(FollowVO follow) {
+		log.info("getFid........");
+		return new ResponseEntity<>(followService.getFid(follow), HttpStatus.OK);
+	}
+	
 }

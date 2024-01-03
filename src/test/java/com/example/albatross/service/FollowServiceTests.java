@@ -30,17 +30,26 @@ public class FollowServiceTests {
 //		log.info(followService.remove(7L));
 //	}
 	
-	@Test
-	public void selectListTest() {
-		followService.getList(3L).forEach(log::info);
-	}
+//	@Test
+//	public void selectListTest() {
+//		followService.getList(3L).forEach(log::info);
+//	}
+	
+//	@Test
+//	public void existsTest() {
+//		FollowVO follow = new FollowVO();
+//		follow.setFrom_uid(3L);
+//		follow.setTo_uid(30L);
+//		
+//		log.info("존재" +followService.exists(follow));
+//	} 
 	
 	@Test
-	public void existsTest() {
+	public void selectFidTest() {
 		FollowVO follow = new FollowVO();
 		follow.setFrom_uid(3L);
 		follow.setTo_uid(30L);
 		
-		log.info("존재" +followService.exists(follow));
-	} 
+		log.info("FID =" + followService.getFid(follow));
+	}
 }

@@ -21,7 +21,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
 			
 			log.error("Redirect.....");
 			
-			response.sendRedirect("/Albatross/error");
+			response.sendRedirect("/accessError");
 			
 		}
 	

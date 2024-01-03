@@ -12,4 +12,5 @@ public interface FollowMapper {
 	public int insert(FollowVO followVO);
 	public int delete(long fid);
 	public boolean exists(FollowVO followVO);
+	public int selectFid(FollowVO followVO);
 }

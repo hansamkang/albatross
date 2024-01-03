@@ -25,6 +25,7 @@
 </head>
 <body>
     <div class="container">
+    	<h2><c:out value="${error}"/></h2>
         <div class="box box-one">
             <img id="mainImg" src="/resources/images/albatross.png"/>
         </div>
@@ -39,10 +40,12 @@
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			</form>
 			
-            <button class="next-btn" onclick="submitForm()">Next</button>
+            <button id="nextButton" class="next-btn" onclick="submitForm()">Next</button>
             <button>Forget password</button>
         </div>
         <p>Don't have an account? <a href="/Albatross/register">Sign Up</a></p>
     </div>
 </body>
+<script>
+</script>
 </html>

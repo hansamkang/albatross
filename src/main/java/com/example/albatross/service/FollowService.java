@@ -12,4 +12,5 @@ public interface FollowService {
 	public boolean add(FollowVO fvo);
 	public boolean remove(long fid);
 	public boolean exists(FollowVO followVO);
+	public int getFid(FollowVO followVO);
 }

@@ -34,5 +34,11 @@
 ) AS success
 FROM DUAL
 	</select>
+	
+	<select id="selectFid" resultType="int">
+	SELECT FID
+	FROM ATT_FOLLOW
+	WHERE FROM_UID = #{from_uid} AND TO_UID = #{to_uid}
+	</select>
 
 </mapper>

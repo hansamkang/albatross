@@ -27,7 +27,7 @@
     <div class="sidebar">
       <img id="mainImg" src="/resources/images/albatrossIcon.png" style="width:40px; height:40px; margin-left:20px;"/>
       
-    <a href="/Albatross/main" class="sidebarOption active">
+    <a href="/Albatross/main" class="sidebarOption">
   		<span class="material-icons">home</span>
   		<h2>Home</h2>
 	</a>
@@ -37,12 +37,12 @@
   		<h2>Profile</h2>
 	</a>
 	
-	<a href="/Albatross/main" class="sidebarOption">
+	<a href="/Albatross/follow" class="sidebarOption">
   		<span class="material-icons">group</span>
   		<h2>Friends</h2>
 	</a>
 
-	<a href="/Albatross/main" class="sidebarOption">
+	<a href="/Albatross/main" class="sidebarOption active	">
   		<span class="material-icons">more_horiz</span>
   		<h2>More</h2>
 	</a>

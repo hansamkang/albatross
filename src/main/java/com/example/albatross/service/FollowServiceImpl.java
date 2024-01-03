@@ -36,4 +36,15 @@ public class FollowServiceImpl implements FollowService {
 		return followMapper.exists(followVO);
 	}
 
+	@Override
+	public int getFid(FollowVO followVO) {
+		if(followMapper.exists(followVO))
+		{
+			return followMapper.selectFid(followVO);
+		}
+		else {
+			return 0;
+		}
+	}
+
 }

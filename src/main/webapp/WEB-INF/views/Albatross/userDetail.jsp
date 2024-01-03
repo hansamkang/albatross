@@ -27,17 +27,17 @@
     <div class="sidebar">
       <img id="mainImg" src="/resources/images/albatrossIcon.png" style="width:40px; height:40px; margin-left:20px;"/>
       
-    <a href="/Albatross/main" class="sidebarOption active">
+    <a href="/Albatross/main" class="sidebarOption">
   		<span class="material-icons">home</span>
   		<h2>Home</h2>
 	</a>
     
-    <a href="/Albatross/userDetail?uuid=${userAuthentication.user.uuid}" class="sidebarOption">
+    <a href="/Albatross/userDetail?uuid=${userAuthentication.user.uuid}" class="sidebarOption active">
   		<span class="material-icons">perm_identity</span>
   		<h2>Profile</h2>
 	</a>
 	
-	<a href="/Albatross/main" class="sidebarOption">
+	<a href="/Albatross/follow" class="sidebarOption">
   		<span class="material-icons">group</span>
   		<h2>Friends</h2>
 	</a>
@@ -97,7 +97,7 @@
       		<div class="join-info">
         		<div class="user-nickname">${UserVO.nickname}</div>
         		<span class="material-icons post__badge"> verified </span>
-        		<span class="material-icons widgets__profileIcon" style=""> add </span>
+        		<span id="followIcon" class="material-icons widgets__profileIcon" style=""> add </span>
         		<c:if test="${UserVO.uuid == userAuthentication.user.uuid}">
                 	<span id="editProfileIcon" class="material-icons widgets__profileIcon" data-url="/Albatross/edit?uuid=${userAuthentication.user.uuid}" > edit_note </span>	
 				</c:if>
@@ -151,6 +151,7 @@
 	<script src="/resources/assets/js/util.js"></script>
     <script src="/resources/assets/js/main.js"></script>
     <script src="/resources/assets/js/tweet.js"></script>
+    <script src="/resources/assets/js/follow.js"></script>
     <script>
     const tweetBoardDiv = $("div.tweetBoard");
     // 전역 변수들 
@@ -164,7 +165,7 @@
     // ----------------------------------------------------------------
     //함수 실행
     showList();
-    
+    window.onload = setupFollow;
  // ----------------------------------------------------------------함수 라인-----------------------------------------------
     //트윗 리스트 보여주는 함수  
     function showList(page){
@@ -367,6 +368,70 @@
 		});
 	});
 	
+	function setupFollow() {
+        var iconElement = document.getElementById('followIcon');
+        var tempF ='<sec:authentication property="principal.user.uuid"/>';
+       	var tempT =${UserVO.uuid};
+       	
+        var condition;
+        followService.exists({
+    		from_uid : tempF,
+    		to_uid : tempT
+    	},function(result){
+    		condition = result;
+    		
+    		console.log("컨디션 "+ condition);
+    		if(tempF == tempT){
+    			iconElement.style.display = 'none';
+    			return;}
+            if (!condition) {
+                iconElement.innerHTML = 'add'; // Material Icons에서 'add' 아이콘을 사용합니다.
+                iconElement.onclick = addFunction; // 추가 기능을 수행하는 함수를 연결합니다.
+            } else {
+                iconElement.innerHTML = 'check_circle'; // Material Icons에서 'check_circle' 아이콘을 사용합니다.
+                iconElement.style.color = '#e91e63'; // 아이콘 색깔을 빨간색으로 변경합니다.
+                iconElement.onclick = removeFunction; // 제거 기능을 수행하는 함수를 연결합니다.
+
+                
+            }
+    	});
+        
+        
+        
+    }
+	
+	
+	// 추가 기능을 수행하는 함수입니다.
+    function addFunction() {
+    	var tempF ='<sec:authentication property="principal.user.uuid"/>';
+       	var tempT =${UserVO.uuid};
+       	
+       	followService.add({
+    		from_uid : tempF,
+    		to_uid : tempT
+    	});
+       	
+		alert('팔로우 되었습니다.');
+		location.reload(true);
+        
+    }
+
+    // 제거 기능을 수행하는 함수입니다.
+    function removeFunction() {
+    	var tempF ='<sec:authentication property="principal.user.uuid"/>';
+       	var tempT =${UserVO.uuid};
+       	
+       	var fid = followService.getFid({
+    		from_uid : tempF,
+    		to_uid : tempT
+    	},function(result){
+    		console.log("FID = " + result);
+           	followService.remove(result);
+            alert('팔로우 해제 되었습니다.');
+            location.reload(true);
+    	});
+
+    }
     </script>
   </body>
 </html>

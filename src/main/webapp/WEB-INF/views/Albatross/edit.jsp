@@ -34,7 +34,7 @@
 			<li>
 			<c:choose>
           		<c:when test="${UserVO.profile_link == null}">
-          			<img class="profile-image" src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png" style="width: 500px; height: auto;"/>
+          			<img class="profile-image" src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png" style="width: 80px; height: auto;"/>
           		</c:when>
           		<c:otherwise>
           			<img class="profile-image" src="/images/${UserVO.profile_link}" style ="width:200px; height: auto;"/>
@@ -50,8 +50,8 @@
                 <input type="file" id="picture" name="picture" accept="image/*">
             </div>
             <div class="form-group">
-                <button type="submit">Edit</button>
-                <button type="cancle">Cancle</button>
+                <button type="submit">Complete</button>
+                <button type="button" id="cancelButton">Cancel</button>
             </div>
         </form>
     </div>
@@ -93,12 +93,12 @@
 	 		window.location.href = '/Albatross/Login';
 	 	});     
 	 });
-	 $("#signupForm").on('cancle', function(e) {
-	    e.preventDefault();
-	    
-	 	window.location.href = '/Albatross/main';
-
-	 });
+	 
+	 
+	 $("#cancelButton").on('click', function(e) {
+		  e.preventDefault();
+		  window.location.href = '/Albatross/main';
+	});
         
 //----------------------------------------------프사 관련-------------------------------------------        
     //사진 첨부 
