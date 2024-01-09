@@ -124,7 +124,7 @@
     <div class="widgets">
       <div class="widgets__input">
         <span class="material-icons widgets__searchIcon"> search </span>
-        <input id="searchInput" type="text" placeholder="Search Twitter" />
+        <input id="searchInput" type="text" placeholder="Search" />
       </div>
 
       <div class="widgets__widgetContainer">
@@ -152,6 +152,7 @@
     <script src="/resources/assets/js/main.js"></script>
     <script src="/resources/assets/js/tweet.js"></script>
     <script src="/resources/assets/js/follow.js"></script>
+    <script src="/resources/assets/js/heart.js"></script>
     <script>
     const tweetBoardDiv = $("div.tweetBoard");
     // 전역 변수들 
@@ -185,6 +186,8 @@
     		console.log(result);
     		let list = result;
     		let str ="";
+    		//하트관련
+    		let currentUUID = ${userAuthentication.user.uuid}; 
     		
     		for(let i = 0; i<list.length; i++){
 				let check = false;
@@ -193,6 +196,10 @@
 				
 				str += `<div class="post">`;
 				str += `<div class="post__avatar">`;
+				
+				//하트 총수
+				let heartTotal = heartService.getTotal(list[i].tid);
+				
 				// 프로필
 				if(list[i].profile_link == null){
 					str += `<img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"`;	
@@ -217,7 +224,25 @@
 				}
 				str += `<div class="post__footer">`;
 				str += `<span class="material-icons"> repeat </span>`;
-				str += `<span id="like-icon" class="material-icons not-liked"> favorite_border </span>`;
+				
+				
+				//하트 
+				let thisTid = list[i].tid;
+				let exists;
+				str += `<div style="display: flex; justify-content: space-around; align-items: center;">`
+				if(heartService.exists({
+		    		uuid : currentUUID,
+		    		tid : thisTid
+		    	})){
+	    			str += `<span id="like-icon" class="material-icons liked"> favorite </span>`;
+	    			str += `<h5 style="margin-left: 5px; color: #e91e63;">` + heartTotal +`</h5></div>`;
+	    		}
+	    		else{
+					str += `<span id="like-icon" class="material-icons not-liked"> favorite_border </span>`;
+					str += `<h5 style="margin-left: 5px;">` + heartTotal +`</h5></div>`;
+	    		}
+				
+				
 				str += `<span class="material-icons"> reply </span>`;
 				str += `</div>`;
 				str += `</div>`;

@@ -92,7 +92,7 @@
     <div class="widgets">
       <div class="widgets__input">
         <span class="material-icons widgets__searchIcon"> search </span>
-        <input id="searchInput" type="text" placeholder="Search Twitter" />
+        <input id="searchInput" type="text" placeholder="Search" />
       </div>
 
       <div class="widgets__widgetContainer">
@@ -129,7 +129,7 @@
 	showList();
  // ----------------------------------------------------------------함수 라인-----------------------------------------------
   function showList(){
-		var tempFromUid = 3;
+		var tempFromUid = ${userAuthentication.user.uuid};
 			
     	followService.get(tempFromUid,function(result){
     		console.log(result);

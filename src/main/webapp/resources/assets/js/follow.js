@@ -38,7 +38,6 @@ let followService = (function(){
  			}
  		});
  	}
- 	
  	// 팔로우 하기
  	function exists(follow, callback){
  		console.log("follow exists check.....");
@@ -61,6 +60,7 @@ let followService = (function(){
     		}
 		});		
  	}
+
  	
  	//팔로우 목록 가져오기
 	function get(uuid, callback){

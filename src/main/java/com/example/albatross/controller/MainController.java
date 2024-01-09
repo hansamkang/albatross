@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.albatross.service.HeartService;
 import com.example.albatross.service.TweetService;
 import com.example.albatross.service.UserService;
 
@@ -22,6 +23,10 @@ public class MainController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private HeartService heartService;
+	
 	
 	//User 계정으로만 진입가능
 	@GetMapping("/main")
