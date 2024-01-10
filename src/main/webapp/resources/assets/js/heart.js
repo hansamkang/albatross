@@ -41,8 +41,6 @@ let heartService = (function(){
  	
  	// 좋아요 유무 확인
  	function exists(heart){
- 		console.log("heart exists check.....");
-
  		var result = null;
  		
  		$.ajax({
@@ -52,7 +50,6 @@ let heartService = (function(){
     		data: heart,
     		async: false,
     		success: function(data) {
-    			console.log("결과"+data);
     			result = data;
     		},
     		error: function(error) {
@@ -88,8 +85,7 @@ let heartService = (function(){
 	}
 	
 	function getTotal(tid){
-		console.log("heart total check.....");
-		
+	
 		var result = null;
 		
 		$.ajax({
@@ -97,7 +93,6 @@ let heartService = (function(){
 	    		type: 'GET',
 	    		async: false,
 	    		success: function(data) {
-	    			console.log("결과"+data);
 					result = data;
 	    		},
 	    		error: function(error) {

@@ -119,7 +119,7 @@
             	<span id="like-icon" class="material-icons not-liked"> favorite_border </span>
             	<h5 style="margin-left: 5px;">0</h5>
             </div>
-            <span class="material-icons"> reply </span>
+            <span id="reportIcon" class="material-icons"> report </span>
             <c:if test="${TweetDTO.uuid == userAuthentication.user.uuid}">
                 <span id ="deleteIcon" class="material-icons"> delete </span>		
 			</c:if>
@@ -415,7 +415,31 @@
 	    }
 	});
  
- 
+ // post 글 누를 시 리다이렉트
+ $(document).on('click', '#reportIcon', function() {
+	 let currentUUID =${userAuthentication.user.uuid};
+	 let thisTid = ${TweetDTO.tid};
+	 
+	 $.ajax({
+ 		url: '/declare/new',
+ 		type: 'POST',
+ 		contentType: 'application/json',
+ 		dataType: 'json',
+ 		data: JSON.stringify({
+ 			tid: thisTid,
+ 			uuid: currentUUID
+ 		}),
+ 		success: function(result) {
+ 			console.log(result);
+ 			alert("신고 되었습니다.");
+ 		},
+ 		error: function(error) {
+ 			console.log(error);
+ 			alert("신고 되었습니다.");
+ 		}
+	});		
+	 
+});  
  
  // post 글 누를 시 리다이렉트
  $(document).on('click', '.post__body', function() {

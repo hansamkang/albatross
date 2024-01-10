@@ -6,6 +6,8 @@
 		<typeAlias type="com.example.albatross.domain.vo.TweetDTO" alias="tweetDTO"/>
 		<typeAlias type="com.example.albatross.domain.vo.FollowVO" alias="followVO"/>
 		<typeAlias type="com.example.albatross.domain.vo.HeartVO" alias="HeartVO"/>
+		<typeAlias type="com.example.albatross.domain.vo.DeclareVO" alias="DeclareVO"/>
+		<typeAlias type="com.example.albatross.domain.vo.TweetVO" alias="TweetVO"/>
 	</typeAliases>
 	
 </configuration>

@@ -25,6 +25,8 @@
 	<security:intercept-url pattern="/Albatross/search" access="hasRole('ROLE_USER')"/>
 	<security:intercept-url pattern="/Albatross/follow" access="hasRole('ROLE_USER')"/>
 	<security:intercept-url pattern="/Albatross/admin" access="hasRole('ROLE_ADMIN')"/> 
+	<security:intercept-url pattern="/Albatross/adminRead" access="hasRole('ROLE_ADMIN')"/> 
+	<security:intercept-url pattern="/Albatross/delete" access="hasRole('ROLE_ADMIN')"/> 
 	
 	 
 	<security:form-login login-page="/Albatross/Login" authentication-success-handler-ref="customLoginSuccess"/>

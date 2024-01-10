@@ -1,12 +1,18 @@
 package com.example.albatross.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.albatross.domain.vo.DeclareVO;
+import com.example.albatross.service.DeclareService;
 import com.example.albatross.service.HeartService;
 import com.example.albatross.service.TweetService;
 import com.example.albatross.service.UserService;
@@ -27,6 +33,8 @@ public class MainController {
 	@Autowired
 	private HeartService heartService;
 	
+	@Autowired
+	private DeclareService declareService;
 	
 	//User 계정으로만 진입가능
 	@GetMapping("/main")
@@ -66,17 +74,54 @@ public class MainController {
 		log.info("MainContorller = /follow에 들어왔음 ");
 	}
 	
-	//관리자 계정으로만 진입가능
-	@GetMapping("/admin")
-	public void doAdmin() {
-		log.info("MainController에서 /admin 진입");
-	}
 	
 	//계정 없이 진입 가능
 	@GetMapping("/register")
 	public void doAccountRegister() {
 		log.info("MainController에서 /accountRegiste 진입");
 	}
+	
+	//--------------------------------------------------------------------관리자
+	
+	@GetMapping("/admin")
+	public void list(Long did, HttpServletRequest request, Model model) {
+		
+		log.info("list...");
+		model.addAttribute("declarelist", declareService.getGroupCount());
+	}
+	
+	@GetMapping("/adminRead")
+	public void read(Long tid, HttpServletRequest request, Model model) {
+		log.info("read...");
+		String url = request.getRequestURI();
+		log.info(url.substring(url.lastIndexOf("/")) + ": " + tid);
+		model.addAttribute("declare", declareService.read(tid));
+	}
+
+	@GetMapping("/adminDelete")
+	public String delete(Long tid, RedirectAttributes rttr) {
+		log.info("/delete: " + tid);
+		
+		if(declareService.delete(tid) && declareService.tweetDelete(tid)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		
+		return "redirect:/Albatross/admin";
+	}
+	
+	@PostMapping("/declare")
+	public String declare(DeclareVO declareVO, RedirectAttributes rttr) {
+		log.info("/declare: " + declareVO);
+		declareService.declare(declareVO);
+		
+		rttr.addFlashAttribute("did", declareVO.getDid());
+		return "redirect:/declare/list";
+	} 
+
+	
+	
+	
+	
 	//---------------------------------CommonController-------------------------------------
 	@GetMapping("/error")
 	public void accessDenied(Authentication auth, Model model){		
